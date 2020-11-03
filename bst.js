@@ -144,3 +144,45 @@ class BinarySearchTree {
         return this.left._findMin();
     }
 }
+
+const bst = new BinarySearchTree();
+const bst2 = new BinarySearchTree();
+
+let arr = [3, 1, 4, 6, 9, 2, 5, 7]
+let quest = ['E', 'A', 'S', 'Y', 'Q', 'U', 'E', 'S', 'T', 'I', 'O', 'N']
+
+for (let i = 0; i < arr.length; i++) {
+    bst.insert(arr[i], arr[i]);
+}
+
+for (let i = 0; i < quest.length; i++) {
+    bst2.insert(quest[i], quest[i]);
+}
+
+// console.log(bst2.right.right.left.left.key)
+
+function tree(t) {
+    if (!t) {
+        return 0;
+    }
+    console.log('LEFT     ', t.left, 'VALUE     ', t.value, 'RIGHT     ', t.right)
+    return tree(t.left) + t.value + tree(t.right)
+
+}
+
+function height(t) {
+    let leftCount = 0;
+    let rightCount = 0;
+
+    // if (!t) {
+
+    //     if (leftCount < rightCount) {
+    //         return rightCount
+    //     } else {
+    //         return leftCount
+    //     }
+    // }
+    return height(t.left, leftCount++) + height(t.right, rightCount++)
+}
+
+console.log(height(bst2))
