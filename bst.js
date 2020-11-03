@@ -1,3 +1,5 @@
+const showTree = require('./renderTree')
+
 class BinarySearchTree {
     constructor(key = null, value = null, parent = null) {
         this.key = key;
@@ -143,12 +145,19 @@ class BinarySearchTree {
         }
         return this.left._findMin();
     }
+
+    _findMax() {
+        if (!this.right) {
+            return this;
+        }
+        return this.right._findMax();
+    }
 }
 
 const bst = new BinarySearchTree();
 const bst2 = new BinarySearchTree();
 
-let arr = [3, 1, 4, 6, 9, 2, 5, 7]
+let arr = [3, 1, 4, 6, 20, 2, 5, 7, 8, 12, 15, 18, 0]
 let quest = ['E', 'A', 'S', 'Y', 'Q', 'U', 'E', 'S', 'T', 'I', 'O', 'N']
 
 for (let i = 0; i < arr.length; i++) {
@@ -165,24 +174,84 @@ function tree(t) {
     if (!t) {
         return 0;
     }
-    console.log('LEFT     ', t.left, 'VALUE     ', t.value, 'RIGHT     ', t.right)
     return tree(t.left) + t.value + tree(t.right)
 
 }
 
 function height(t) {
-    let leftCount = 0;
-    let rightCount = 0;
+    if (!t) return 0;
 
-    // if (!t) {
+    const leftHeight = height(t.left);
+    const rightHeight = height(t.right);
 
-    //     if (leftCount < rightCount) {
-    //         return rightCount
-    //     } else {
-    //         return leftCount
-    //     }
-    // }
-    return height(t.left, leftCount++) + height(t.right, rightCount++)
+    return Math.max(leftHeight, rightHeight) + 1;
 }
 
-console.log(height(bst2))
+// console.log(height(bst2))
+
+function isBST(t) {
+    if (!t) {
+        return true;
+    }
+
+    if (t.left != null && t.left.value > t.value) {
+        return false;
+    }
+
+    if (t.right != null && t.right.value < t.value) {
+        return false;
+    }
+    if (!isBST(t.left) || !isBST(t.right)) {
+        return false;
+    }
+
+    return true;
+}
+
+// console.log(isBST(bst2))
+
+function nthLargest(node, target, count = 0, max) {
+ 
+    // while (node.right && (!max || node.right.value < max)) {
+    //     node = node.right
+    // }
+
+    if(node.right && (!max || node.right.value < max)) {
+        return nthLargest(node.right, target, count, max)
+    }
+    count++
+
+    max = node.value
+
+    if (count == target) {
+        return node.value
+    }
+
+    if (node.left) {
+        return nthLargest(node.left, target, count, max)
+    }
+
+    return nthLargest(node.parent, target, count, max)
+}
+// showTree(bst)
+// console.log(nthLargest(bst, 3))
+
+
+function balanceBST(arr, start = 0, end = arr.length) {
+    if(start === end) {
+        return null;
+    }
+
+    const index = Math.floor((end + start) /2);
+    const value = arr[index];
+    const tree = new BinarySearchTree(value);
+
+    const leftSubtree = balanceBST(arr, start, index);
+    const rightSubtree = balanceBST(arr, index + 1, end);
+
+    tree.left = leftSubtree;
+    tree.right = rightSubtree;
+    return tree;
+}
+
+showTree((balanceBST([1, 2, 3, 5, 7, 9, 11, 13])))
