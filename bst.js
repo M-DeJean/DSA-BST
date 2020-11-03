@@ -156,9 +156,14 @@ class BinarySearchTree {
 
 const bst = new BinarySearchTree();
 const bst2 = new BinarySearchTree();
-
+const bst3 = new BinarySearchTree();
+const bst4 = new BinarySearchTree();
+const bst5 = new BinarySearchTree();
 let arr = [3, 1, 4, 6, 20, 2, 5, 7, 8, 12, 15, 18, 0]
 let quest = ['E', 'A', 'S', 'Y', 'Q', 'U', 'E', 'S', 'T', 'I', 'O', 'N']
+let same1 = [3, 5, 4, 6, 1, 0, 2]
+let same2 = [3, 1, 5, 2, 4, 6, 0]
+let same3 = [3, 6, 1, 5, 4, 0, 2]
 
 for (let i = 0; i < arr.length; i++) {
     bst.insert(arr[i], arr[i]);
@@ -168,6 +173,21 @@ for (let i = 0; i < quest.length; i++) {
     bst2.insert(quest[i], quest[i]);
 }
 
+for (let i = 0; i < same1.length; i++) {
+    bst3.insert(same1[i], same1[i]);
+}
+for (let i = 0; i < same2.length; i++) {
+    bst4.insert(same2[i], same2[i]);
+}
+for (let i = 0; i < same3.length; i++) {
+    bst5.insert(same3[i], same3[i]);
+}
+console.log('\n Tree 1 \n')
+showTree(bst3)
+console.log('\n Tree 2 \n')
+showTree(bst4)
+console.log('\n Tree 3 \n')
+showTree(bst5)
 // console.log(bst2.right.right.left.left.key)
 
 function tree(t) {
@@ -211,12 +231,12 @@ function isBST(t) {
 // console.log(isBST(bst2))
 
 function nthLargest(node, target, count = 0, max) {
- 
+
     // while (node.right && (!max || node.right.value < max)) {
     //     node = node.right
     // }
 
-    if(node.right && (!max || node.right.value < max)) {
+    if (node.right && (!max || node.right.value < max)) {
         return nthLargest(node.right, target, count, max)
     }
     count++
@@ -238,11 +258,11 @@ function nthLargest(node, target, count = 0, max) {
 
 
 function balanceBST(arr, start = 0, end = arr.length) {
-    if(start === end) {
+    if (start === end) {
         return null;
     }
 
-    const index = Math.floor((end + start) /2);
+    const index = Math.floor((end + start) / 2);
     const value = arr[index];
     const tree = new BinarySearchTree(value);
 
@@ -254,4 +274,4 @@ function balanceBST(arr, start = 0, end = arr.length) {
     return tree;
 }
 
-showTree((balanceBST([1, 2, 3, 5, 7, 9, 11, 13])))
+// showTree((balanceBST([1, 2, 3, 5, 7, 9, 11, 13])))
