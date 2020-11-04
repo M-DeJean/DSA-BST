@@ -208,13 +208,6 @@ for (let i = 0; i < same2.length; i++) {
 for (let i = 0; i < same3.length; i++) {
     bst5.insert(same3[i], same3[i]);
 }
-// console.log('\n Tree 1 \n')
-// showTree(bst3)
-// console.log('\n Tree 2 \n')
-// showTree(bst4)
-// console.log('\n Tree 3 \n')
-// showTree(bst5)
-// console.log(bst2.right.right.left.left.key)
 
 function tree(t) {
     if (!t) {
