@@ -165,6 +165,32 @@ let same1 = [3, 5, 4, 6, 1, 0, 2]
 let same2 = [3, 1, 5, 2, 4, 6, 0]
 let same3 = [3, 6, 1, 5, 4, 0, 2]
 
+function buildTReeWithArrays(input) {
+    
+    results = new Array(input.length)
+    for (i = 0; i < input.length; i++) {
+        const number = input[i];
+        console.log(number, results)
+
+        start = 0
+        end = input.length
+        while (start < end) {
+            middle = Math.floor((start + end) / 2) 
+            if (!results[middle]) {
+                results[middle] = number
+                break;
+            } else if (number > results[middle]) {
+                start = middle + 1
+            } else {
+                end = middle
+            }
+        }
+    }
+
+}
+buildTReeWithArrays(same3)
+
+
 for (let i = 0; i < arr.length; i++) {
     bst.insert(arr[i], arr[i]);
 }
@@ -182,12 +208,12 @@ for (let i = 0; i < same2.length; i++) {
 for (let i = 0; i < same3.length; i++) {
     bst5.insert(same3[i], same3[i]);
 }
-console.log('\n Tree 1 \n')
-showTree(bst3)
-console.log('\n Tree 2 \n')
-showTree(bst4)
-console.log('\n Tree 3 \n')
-showTree(bst5)
+// console.log('\n Tree 1 \n')
+// showTree(bst3)
+// console.log('\n Tree 2 \n')
+// showTree(bst4)
+// console.log('\n Tree 3 \n')
+// showTree(bst5)
 // console.log(bst2.right.right.left.left.key)
 
 function tree(t) {
@@ -275,3 +301,4 @@ function balanceBST(arr, start = 0, end = arr.length) {
 }
 
 // showTree((balanceBST([1, 2, 3, 5, 7, 9, 11, 13])))
+
